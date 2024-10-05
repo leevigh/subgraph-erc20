@@ -1,6 +1,31 @@
-type ExampleEntity @entity {
-  id: Bytes!
-  count: BigInt!
-  owner: Bytes! # address
-  spender: Bytes! # address
+type Token @entity {
+  id: ID!
+  name: String!
+  symbol: String!
+  decimals: Int!
+  totalSupply: BigInt!
+}
+
+type Account @entity {
+  id: ID!
+  balance: BigInt!
+  transfers: [Transfer!]! @derivedFrom(field: "from")
+}
+
+type Approval @entity {
+  id: ID!
+  owner: String!
+  spender: String!
+  value: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Account!
+  to: Account!
+  value: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
 }
